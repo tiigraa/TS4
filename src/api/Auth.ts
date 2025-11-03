@@ -1,8 +1,29 @@
- export async function registerUser(data: { login: string; email: string; 
-password: string }): Promise<Response> {
- return fetch('/api/auth/register', {
- method: 'POST',
- headers: { 'Content-Type': 'application/json' },
- body: JSON.stringify(data),
- });
- }
+
+
+
+export const registerUser = async (userData: UserData): Promise<AuthResponse> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      // Имитация проверки существующего email
+      if (userData.email === 'existing@example.com') {
+        resolve({
+          success: false,
+          message: 'Email is already registered'
+        });
+        return;
+      }
+
+      // Успешная регистрация
+      resolve({
+        success: true,
+        message: 'Registration successful!',
+        data: {
+          id: Math.random().toString(36).substr(2, 9),
+          login: userData.login,
+          email: userData.email,
+          token: 'mock-jwt-token-' + Date.now()
+        }
+      });
+    }, 1500);
+  });
+};
