@@ -1,5 +1,24 @@
+// Интерфейс данных пользователя для регистрации
+interface UserData {
+login: string;
+email: string;
+password: string;
+}
 
+// Интерфейс данных зарегистрированного пользователя
+interface RegisteredUser {
+id: string;
+login: string;
+email: string;
+token: string;
+}
 
+// Интерфейс ответа от API
+interface AuthResponse {
+success: boolean;
+message: string;
+data?: RegisteredUser;
+}
 
 export const registerUser = async (userData: UserData): Promise<AuthResponse> => {
   return new Promise((resolve) => {

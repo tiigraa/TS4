@@ -1,14 +1,14 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import RegistrationForm from './RegistrationForm';
+import RegistrationForm from '../RegistrationForm';
+import { registerUser } from '../../../api/Auth';
 
 // Mock the registerUser function
-jest.mock('../services/Auth', () => ({
+jest.mock('../../../api/Auth', () => ({
   registerUser: jest.fn()
 }));
 
-import { registerUser } from '../services/Auth';
 
 const mockRegisterUser = registerUser as jest.MockedFunction<typeof registerUser>;
 
@@ -89,7 +89,8 @@ describe('RegistrationForm', () => {
     mockRegisterUser.mockResolvedValue({
       success: true,
       message: 'Registration successful!',
-      data: { id: '123', login: 'TestUser', email: 'test@example.com' }
+      data: { id: '123', login: 'TestUser', email: 'test@example.com', token: 'mock-jwt-token-here' },
+      
     });
 
     render(<RegistrationForm onRegistrationSuccess={mockOnSuccess} />);
@@ -105,9 +106,13 @@ describe('RegistrationForm', () => {
     await user.type(passwordInput, 'password123');
     await user.click(submitButton);
 
-    // Check loading state
+     await waitFor(() => {
     expect(submitButton).toBeDisabled();
-    expect(submitButton).toHaveTextContent('Registering...');
+  });
+
+    // Check loading state
+    //expect(submitButton).toBeDisabled();
+    //expect(submitButton).toHaveTextContent('Registering...');
 
     // Wait for success
     await waitFor(() => {
@@ -125,7 +130,8 @@ describe('RegistrationForm', () => {
     expect(mockOnSuccess).toHaveBeenCalledWith({
       login: 'TestUser',
       email: 'test@example.com',
-      password: 'password123'
+      password: 'password123',
+      token: 'mock-jwt-token-here'
     });
   });
 

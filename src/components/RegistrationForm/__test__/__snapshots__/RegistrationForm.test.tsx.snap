@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RegistrationForm renders correctly and matches snapshot 1`] = `
+<DocumentFragment>
+  <form>
+    <div>
+      <label
+        for="login-input"
+      >
+        Login
+      </label>
+      <input
+        aria-required="true"
+        data-testid="login-input"
+        id="login-input"
+        type="text"
+        value=""
+      />
+    </div>
+    <div>
+      <label
+        for="email-input"
+      >
+        Email
+      </label>
+      <input
+        aria-required="true"
+        data-testid="email-input"
+        id="email-input"
+        type="email"
+        value=""
+      />
+    </div>
+    <div>
+      <label
+        for="password-input"
+      >
+        Password
+      </label>
+      <input
+        aria-required="true"
+        data-testid="password-input"
+        id="password-input"
+        type="password"
+        value=""
+      />
+    </div>
+    <button
+      data-testid="submit-button"
+      type="submit"
+    >
+      Register
+    </button>
+    <div
+      data-testid="validation-message"
+      style="color: orange; margin-top: 10px;"
+    >
+      ⚠ Please fix the validation errors
+    </div>
+  </form>
+</DocumentFragment>
+`;

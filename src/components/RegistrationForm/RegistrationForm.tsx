@@ -1,7 +1,7 @@
  // Форма регистрации
 import React, { useState } from 'react';
 import SimpleReactValidator from 'simple-react-validator';
-import { registerUser } from '.../api/Auth'; // Импортируем функцию registerUser
+import { registerUser } from '../../api/Auth'; // Импортируем функцию registerUser
 
 // Интерфейс для данных пользователя
 interface UserData {
@@ -110,8 +110,11 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label>Login</label>
+        <label htmlFor="login-input">Login</label>
         <input
+          id="login-input"
+          data-testid="login-input"
+          aria-required="true"
           type="text"
           value={login}
           onChange={(e) => handleInputChange(setLogin, e.target.value)}
@@ -122,8 +125,11 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
       </div>
 
       <div>
-        <label>Email</label>
+        <label htmlFor="email-input">Email</label>
         <input
+          id="email-input"
+          data-testid="email-input"
+          aria-required="true"
           type="email"
           value={email}
           onChange={(e) => handleInputChange(setEmail, e.target.value)}
@@ -134,8 +140,11 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
       </div>
 
       <div>
-        <label>Password</label>
+        <label htmlFor="password-input">Password</label>
         <input
+          id="password-input"
+          data-testid="password-input"
+          aria-required="true"
           type="password"
           value={password}
           onChange={(e) => handleInputChange(setPassword, e.target.value)}
@@ -147,6 +156,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
 
       <button 
         type="submit" 
+        data-testid="submit-button"
         disabled={isLoading} // Блокируем кнопку во время загрузки
       >
         {isLoading ? 'Registering...' : 'Register'}
@@ -154,20 +164,20 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
 
       {/* Отображение статуса регистрации */}
       {registrationStatus === 'success' && (
-        <div style={{ color: 'green', marginTop: '10px' }}>
+        <div data-testid="success-message" style={{ color: 'green', marginTop: '10px' }}>
           ✅ {statusMessage}
         </div>
       )}
 
       {registrationStatus === 'error' && (
-        <div style={{ color: 'red', marginTop: '10px' }}>
+        <div data-testid="error-message" style={{ color: 'red', marginTop: '10px' }}>
           ❌ {statusMessage}
         </div>
       )}
 
       {/* Валидационные сообщения */}
       {!validator.allValid() && (
-        <div style={{ color: 'orange', marginTop: '10px' }}>
+        <div data-testid="validation-message" style={{ color: 'orange', marginTop: '10px' }}>
           ⚠ Please fix the validation errors
         </div>
       )}
